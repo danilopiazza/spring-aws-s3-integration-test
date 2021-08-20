@@ -16,6 +16,8 @@ import com.amazonaws.services.s3.model.AmazonS3Exception;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +29,8 @@ import org.testcontainers.utility.DockerImageName;
 @SpringBootTest
 @Testcontainers
 class ObjectStorageClientIT {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectStorageClientIT.class);
+
     static DockerImageName localstackImage = DockerImageName.parse("localstack/localstack:0.12.10");
 
     @Container
@@ -48,6 +52,10 @@ class ObjectStorageClientIT {
         System.setProperty("cloud.aws.credentials.access-key", localStack.getAccessKey());
         System.setProperty("cloud.aws.credentials.secret-key", localStack.getSecretKey());
         System.setProperty("cloud.aws.region.static", localStack.getRegion());
+        LOGGER.info("LocalStack AWS S3 Endpoint: {}", localStack.getEndpointOverride(S3));
+        LOGGER.info("LocalStack AWS Access Key: {}", localStack.getAccessKey());
+        LOGGER.info("LocalStack AWS Secret Key: {}", localStack.getSecretKey());
+        LOGGER.info("LocalStack AWS Region: {}", localStack.getRegion());
     }
 
     @BeforeEach
