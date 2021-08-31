@@ -31,7 +31,7 @@ import org.testcontainers.utility.DockerImageName;
 class ObjectStorageClientIT {
     private static final Logger LOGGER = LoggerFactory.getLogger(ObjectStorageClientIT.class);
 
-    static DockerImageName localstackImage = DockerImageName.parse("localstack/localstack:0.12.10");
+    static DockerImageName localstackImage = DockerImageName.parse("localstack/localstack");
 
     @Container
     static LocalStackContainer localStack = new LocalStackContainer(localstackImage).withServices(S3);
